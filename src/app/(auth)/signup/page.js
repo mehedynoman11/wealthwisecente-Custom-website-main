@@ -1,12 +1,13 @@
 "use client"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,7 +20,10 @@ const SignUpPage = () => {
         password,
       }),
     });
-
+    if (res.ok) {
+    // ✅ redirect to sign in page
+    router.push("/login");
+  }
     const data = await res.json();
     alert(data.message || data.error);
   };
